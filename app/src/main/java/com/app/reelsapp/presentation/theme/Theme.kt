@@ -1,4 +1,4 @@
-package com.app.reelsapp.ui.theme
+package com.app.reelsapp.presentation.theme
 
 import android.app.Activity
 import android.os.Build
