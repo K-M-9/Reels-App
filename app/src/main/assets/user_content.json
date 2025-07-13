@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "user_id": 101,
+    "username": "tech_reviewer",
+    "title": "Amazing Sound Quality!",
+    "content": "Just received these wireless earbuds and the sound quality is incredible. The noise cancellation works perfectly in crowded places.",
+    "rating": 5,
+    "created_at": "2024-11-15T10:30:00Z",
+    "product_id": 1,
+    "image_url": "https://example.com/images/user-content-1.jpg"
+  },
+  {
+    "id": 2,
+    "user_id": 102,
+    "username": "fitness_enthusiast",
+    "title": "Perfect for Workouts",
+    "content": "This smartwatch tracks all my activities perfectly. Battery life is excellent and the design is sleek.",
+    "rating": 4,
+    "created_at": "2024-11-14T14:22:00Z",
+    "product_id": 2,
+    "image_url": "https://example.com/images/user-content-2.jpg"
+  },
+  {
+    "id": 3,
+    "user_id": 103,
+    "username": "music_lover",
+    "title": "Great Bass Response",
+    "content": "The portable speaker delivers amazing bass for its size. Perfect for outdoor parties and beach trips.",
+    "rating": 5,
+    "created_at": "2024-11-13T16:45:00Z",
+    "product_id": 3,
+    "image_url": "https://example.com/images/user-content-3.jpg"
+  },
+  {
+    "id": 4,
+    "user_id": 104,
+    "username": "gamer_pro",
+    "title": "Immersive Gaming Experience",
+    "content": "The 7.1 surround sound on this headset is phenomenal. I can hear every footstep in games now.",
+    "rating": 5,
+    "created_at": "2024-11-12T20:15:00Z",
+    "product_id": 4,
+    "image_url": "https://example.com/images/user-content-4.jpg"
+  },
+  {
+    "id": 5,
+    "user_id": 105,
+    "username": "office_worker",
+    "title": "Convenient Charging",
+    "content": "No more cable mess on my desk. This wireless charger is fast and reliable.",
+    "rating": 4,
+    "created_at": "2024-11-11T09:30:00Z",
+    "product_id": 5,
+    "image_url": "https://example.com/images/user-content-5.jpg"
+  },
+  {
+    "id": 6,
+    "user_id": 106,
+    "username": "developer_life",
+    "title": "Ergonomic Excellence",
+    "content": "My neck pain disappeared after using this laptop stand. Highly adjustable and sturdy.",
+    "rating": 5,
+    "created_at": "2024-11-10T11:20:00Z",
+    "product_id": 6,
+    "image_url": "https://example.com/images/user-content-6.jpg"
+  },
+  {
+    "id": 7,
+    "user_id": 107,
+    "username": "content_creator",
+    "title": "All-in-One Solution",
+    "content": "This USB-C hub has everything I need. 4K output is crystal clear and charging is super fast.",
+    "rating": 4,
+    "created_at": "2024-11-09T13:45:00Z",
+    "product_id": 7,
+    "image_url": "https://example.com/images/user-content-7.jpg"
+  },
+  {
+    "id": 8,
+    "user_id": 108,
+    "username": "typing_master",
+    "title": "Tactile Perfection",
+    "content": "The switches feel amazing and the RGB lighting is customizable. Best keyboard I've owned.",
+    "rating": 5,
+    "created_at": "2024-11-08T17:30:00Z",
+    "product_id": 8,
+    "image_url": "https://example.com/images/user-content-8.jpg"
+  },
+  {
+    "id": 9,
+    "user_id": 109,
+    "username": "remote_worker",
+    "title": "Crystal Clear Video",
+    "content": "Video calls have never looked better. Auto-focus works perfectly and audio is crisp.",
+    "rating": 4,
+    "created_at": "2024-11-07T08:15:00Z",
+    "product_id": 9,
+    "image_url": "https://example.com/images/user-content-9.jpg"
+  },
+  {
+    "id": 10,
+    "user_id": 110,
+    "username": "traveler",
+    "title": "Reliable Power Companion",
+    "content": "This power bank saved my phone multiple times during long trips. Fast charging is a game changer.",
+    "rating": 5,
+    "created_at": "2024-11-06T12:00:00Z",
+    "product_id": 10,
+    "image_url": "https://example.com/images/user-content-10.jpg"
+  }
+]
