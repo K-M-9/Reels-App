@@ -31,6 +31,7 @@ fun ReelsScreen(
     reelsViewModel: ReelsViewModel = hiltViewModel()
 ) {
     val productPagingItems = reelsViewModel.productPagingData.collectAsLazyPagingItems()
+    val userContentPagingItems = reelsViewModel.userContentPagingData.collectAsLazyPagingItems()
 
     Box(
         modifier = modifier
@@ -39,63 +40,60 @@ fun ReelsScreen(
     ) {
         when {
             productPagingItems.loadState.refresh is LoadState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        color = Color.Black
-                    )
-                }
+                LoadingContent()
             }
 
             productPagingItems.loadState.refresh is LoadState.Error -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = stringResource(R.string.failed_to_load_videos),
-                            color = Color.White,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-
-                        Button(
-                            onClick = { productPagingItems.retry() },
-                            modifier = Modifier.padding(top = 16.dp)
-                        ) {
-                            Text(stringResource(R.string.retry))
-                        }
-                    }
-                }
+                ErrorContent(onRetry = { productPagingItems.retry() })
             }
 
             productPagingItems.itemCount > 0 -> {
                 VerticalVideoPagerWithPaging(
                     modifier = modifier,
                     productPagingItems = productPagingItems,
+                    userContentPagingItems = userContentPagingItems,
                     initialPage = 0
                 )
             }
+        }
+    }
+}
 
-            else -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.no_videos_available),
-                        color = Color.White,
-                        fontSize = 25.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+@Composable
+fun ErrorContent(onRetry: () -> Unit) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(R.string.failed_to_load_videos),
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Button(
+                onClick = onRetry,
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text(stringResource(R.string.retry))
             }
         }
+    }
+}
+
+@Composable
+private fun LoadingContent() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = Color.White
+        )
     }
 }

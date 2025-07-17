@@ -12,10 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +23,6 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
-
 
 @OptIn(UnstableApi::class)
 @Composable
@@ -42,13 +39,11 @@ fun VideoPlayer(
     val isCurrentPage = currentPage == pageIndex
 
     val exoPlayer = remember {
-        ExoPlayer.Builder(context)
-            .build()
-            .apply {
-                setMediaItem(MediaItem.fromUri(videoUrl))
-                prepare()
-                repeatMode = Player.REPEAT_MODE_ONE
-            }
+        ExoPlayer.Builder(context).build().apply {
+            setMediaItem(MediaItem.fromUri(videoUrl))
+            prepare()
+            repeatMode = Player.REPEAT_MODE_ONE
+        }
     }
 
     LaunchedEffect(isCurrentPage) {
@@ -67,12 +62,17 @@ fun VideoPlayer(
         }
     }
 
-    var showControls by remember { mutableStateOf(false) }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+                if (exoPlayer.isPlaying) exoPlayer.pause() else exoPlayer.play()
+                onSingleTap(exoPlayer)
+            }
     ) {
         AndroidView(
             factory = { ctx ->
@@ -81,35 +81,11 @@ fun VideoPlayer(
                     setShowBuffering(PlayerView.SHOW_BUFFERING_WHEN_PLAYING)
                     useController = false
                     resizeMode = androidx.media3.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-                    setOnClickListener {
-                        onSingleTap(exoPlayer)
-                        showControls = !showControls
-                    }
-                    setOnLongClickListener {
-                        // Handle long press if needed
-                        true
-                    }
                 }
             },
             modifier = Modifier
                 .fillMaxSize()
                 .aspectRatio(9f / 16f, matchHeightConstraintsFirst = true)
-        )
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    if (exoPlayer.isPlaying) {
-                        exoPlayer.pause()
-                    } else {
-                        exoPlayer.play()
-                    }
-                    onSingleTap(exoPlayer)
-                }
         )
     }
 }

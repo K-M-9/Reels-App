@@ -3,4 +3,7 @@
     <string name="failed_to_load_videos">Failed to load videos</string>
     <string name="retry">Retry</string>
     <string name="no_videos_available">No videos available</string>
+    <string name="follow">Follow</string>
+    <string name="owner_image">"Owner Image"</string>
+    <string name="product_icon">"Product Icon"</string>
 </resources>

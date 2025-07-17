@@ -8,11 +8,11 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,11 +31,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.app.reelsapp.domain.model.Product
+import com.app.reelsapp.domain.model.UserContent
 
 @Composable
 fun VerticalVideoPagerWithPaging(
     modifier: Modifier = Modifier,
     productPagingItems: LazyPagingItems<Product>,
+    userContentPagingItems: LazyPagingItems<UserContent>,
     initialPage: Int = 0,
 ) {
     val pagerState = rememberPagerState(
@@ -44,17 +45,12 @@ fun VerticalVideoPagerWithPaging(
         pageCount = { productPagingItems.itemCount }
     )
 
-    LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.currentPage >= productPagingItems.itemCount - 3) {
-            productPagingItems.loadState.append
-        }
-    }
-
     VerticalPager(
         state = pagerState,
         modifier = modifier.fillMaxSize()
     ) { pageIndex ->
         val product = productPagingItems[pageIndex]
+        val userContent = userContentPagingItems[pageIndex]
 
         if (product != null) {
             var pauseButtonVisibility by remember { mutableStateOf(false) }
@@ -64,6 +60,7 @@ fun VerticalVideoPagerWithPaging(
                     .fillMaxSize()
                     .background(Color.Black)
             ) {
+
                 VideoPlayer(
                     videoUrl = product.videoUrl,
                     pagerState = pagerState,
@@ -75,17 +72,28 @@ fun VerticalVideoPagerWithPaging(
                     onVideoGoBackground = { pauseButtonVisibility = false }
                 )
 
-                Column(
+                userContent?.let {
+                    ReelTopBar(
+                        modifier = Modifier
+                            .statusBarsPadding()
+                            .padding(10.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.TopStart),
+                        name = userContent.username,
+                        imageUrl = userContent.imageUrl,
+                        isFollow = true,
+                        onFollowClick = {}
+                    )
+                }
+
+                ReelBottomContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 20.dp)
-                ) {
-                    FooterVideo(
-                        name = product.name,
-                        description = product.description
-                    )
-                }
+                        .padding(bottom = 20.dp),
+                    productName = product.name,
+                    productDescription = product.description
+                )
 
                 AnimatedVisibility(
                     visible = pauseButtonVisibility,
