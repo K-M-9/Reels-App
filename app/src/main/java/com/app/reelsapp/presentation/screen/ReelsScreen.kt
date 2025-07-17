@@ -33,7 +33,6 @@ fun ReelsScreen(
 ) {
     val productPagingItems = reelsViewModel.productPagingData.collectAsLazyPagingItems()
     val userContentPagingItems = reelsViewModel.userContentPagingData.collectAsLazyPagingItems()
-    val currentReelPlaying = reelsViewModel.currentReelPlaying.collectAsStateWithLifecycle().value
 
     Box(
         modifier = modifier
@@ -55,7 +54,7 @@ fun ReelsScreen(
                     productPagingItems = productPagingItems,
                     userContentPagingItems = userContentPagingItems,
                     initialPage = 0,
-                    currentReelPlaying = currentReelPlaying,
+                    currentReelPlaying = reelsViewModel.currentReelPlaying.collectAsStateWithLifecycle().value,
                     onReelClick = reelsViewModel::onChangeCurrentReelPlaying
                 )
             }
