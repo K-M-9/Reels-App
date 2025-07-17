@@ -4,69 +4,69 @@
     "name": "Wireless Earbuds",
     "description": "High-quality wireless earbuds with noise cancellation.",
     "price": 79.99,
-    "video_url": "https://example.com/videos/earbuds-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
   },
   {
     "id": 2,
     "name": "Smartwatch",
     "description": "Feature-packed smartwatch with fitness tracking.",
     "price": 149.99,
-    "video_url": "https://example.com/videos/smartwatch-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
   },
   {
     "id": 3,
     "name": "Portable Speaker",
     "description": "Waterproof Bluetooth speaker with deep bass.",
     "price": 59.99,
-    "video_url": "https://example.com/videos/speaker-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
   },
   {
     "id": 4,
     "name": "Gaming Headset",
     "description": "Professional gaming headset with 7.1 surround sound.",
     "price": 129.99,
-    "video_url": "https://example.com/videos/headset-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
   },
   {
     "id": 5,
     "name": "Wireless Charger",
     "description": "Fast wireless charging pad compatible with all devices.",
     "price": 39.99,
-    "video_url": "https://example.com/videos/charger-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
   },
   {
     "id": 6,
     "name": "Laptop Stand",
     "description": "Ergonomic adjustable laptop stand for better posture.",
     "price": 49.99,
-    "video_url": "https://example.com/videos/stand-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
   },
   {
     "id": 7,
     "name": "USB-C Hub",
     "description": "Multi-port USB-C hub with 4K HDMI and fast charging.",
     "price": 89.99,
-    "video_url": "https://example.com/videos/hub-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
   },
   {
     "id": 8,
     "name": "Mechanical Keyboard",
     "description": "RGB mechanical keyboard with tactile switches.",
     "price": 159.99,
-    "video_url": "https://example.com/videos/keyboard-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
   },
   {
     "id": 9,
     "name": "Webcam HD",
     "description": "1080p HD webcam with auto-focus and noise reduction.",
     "price": 69.99,
-    "video_url": "https://example.com/videos/webcam-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
   },
   {
     "id": 10,
     "name": "Power Bank",
     "description": "20000mAh portable power bank with fast charging.",
     "price": 45.99,
-    "video_url": "https://example.com/videos/powerbank-demo.mp4"
+    "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
   }
 ]

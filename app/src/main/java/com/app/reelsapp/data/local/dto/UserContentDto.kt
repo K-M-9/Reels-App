@@ -3,7 +3,7 @@ package com.app.reelsapp.data.local.dto
 data class UserContentDto(
     val id: Int,
     val user_id: Int,
-    val username: String,
+    val name: String,
     val title: String,
     val content: String,
     val rating: Int,
