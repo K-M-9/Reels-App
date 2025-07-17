@@ -38,7 +38,9 @@ fun VerticalVideoPagerWithPaging(
     modifier: Modifier = Modifier,
     productPagingItems: LazyPagingItems<Product>,
     userContentPagingItems: LazyPagingItems<UserContent>,
+    currentReelPlaying:Boolean,
     initialPage: Int = 0,
+    onReelClick:(isPlaying:Boolean)->Unit
 ) {
     val pagerState = rememberPagerState(
         initialPage = initialPage,
@@ -53,7 +55,6 @@ fun VerticalVideoPagerWithPaging(
         val userContent = userContentPagingItems[pageIndex]
 
         if (product != null) {
-            var pauseButtonVisibility by remember { mutableStateOf(false) }
 
             Box(
                 modifier = Modifier
@@ -66,10 +67,10 @@ fun VerticalVideoPagerWithPaging(
                     pagerState = pagerState,
                     pageIndex = pageIndex,
                     onSingleTap = { player ->
-                        pauseButtonVisibility = !player.isPlaying
+                      onReelClick(!player.isPlaying)
                     },
-                    onVideoDispose = { pauseButtonVisibility = false },
-                    onVideoGoBackground = { pauseButtonVisibility = false }
+                    onVideoDispose = { onReelClick(false)},
+                    onVideoGoBackground = { onReelClick(false) }
                 )
 
                 userContent?.let {
@@ -96,7 +97,7 @@ fun VerticalVideoPagerWithPaging(
                 )
 
                 AnimatedVisibility(
-                    visible = pauseButtonVisibility,
+                    visible = currentReelPlaying,
                     enter = scaleIn(spring(Spring.DampingRatioMediumBouncy), initialScale = 1.5f),
                     exit = scaleOut(tween(150)),
                     modifier = Modifier.align(Alignment.Center)

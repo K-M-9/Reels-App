@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.reelsapp.R
@@ -32,6 +33,7 @@ fun ReelsScreen(
 ) {
     val productPagingItems = reelsViewModel.productPagingData.collectAsLazyPagingItems()
     val userContentPagingItems = reelsViewModel.userContentPagingData.collectAsLazyPagingItems()
+    val currentReelPlaying = reelsViewModel.currentReelPlaying.collectAsStateWithLifecycle().value
 
     Box(
         modifier = modifier
@@ -44,7 +46,7 @@ fun ReelsScreen(
             }
 
             productPagingItems.loadState.refresh is LoadState.Error -> {
-                ErrorContent(onRetry = { productPagingItems.retry() })
+                ErrorContent(onRetry = productPagingItems::retry)
             }
 
             productPagingItems.itemCount > 0 -> {
@@ -52,7 +54,9 @@ fun ReelsScreen(
                     modifier = modifier,
                     productPagingItems = productPagingItems,
                     userContentPagingItems = userContentPagingItems,
-                    initialPage = 0
+                    initialPage = 0,
+                    currentReelPlaying = currentReelPlaying,
+                    onReelClick = reelsViewModel::onChangeCurrentReelPlaying
                 )
             }
         }
@@ -60,7 +64,7 @@ fun ReelsScreen(
 }
 
 @Composable
-fun ErrorContent(onRetry: () -> Unit) {
+private fun ErrorContent(onRetry: () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

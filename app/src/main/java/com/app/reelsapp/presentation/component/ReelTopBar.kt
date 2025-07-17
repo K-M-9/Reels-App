@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -102,9 +104,14 @@ private fun UserAvatar(
     contentDescription: String,
     modifier: Modifier = Modifier
 ) {
+    var isImageFailed by remember { mutableStateOf(false) }
+
     val painter = rememberAsyncImagePainter(
-        model = imageUrl.ifEmpty { R.drawable.ic_launcher_foreground }
+        model = imageUrl.ifEmpty { R.drawable.ic_launcher_foreground },
+        onError = { isImageFailed = true },
+        onSuccess = { isImageFailed = false }
     )
+
     val isLoading = painter.state is AsyncImagePainter.State.Loading
 
     Box(
@@ -121,14 +128,24 @@ private fun UserAvatar(
             )
         }
 
-        Image(
-            painter = painter,
-            contentDescription = contentDescription,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.matchParentSize()
-        )
+        if (!isImageFailed) {
+            Image(
+                painter = painter,
+                contentDescription = contentDescription,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+        } else {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "Fallback image",
+                tint = Color.Gray,
+                modifier = Modifier.matchParentSize()
+            )
+        }
     }
 }
+
 
 @Composable
 private fun FollowButton(

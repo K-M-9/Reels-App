@@ -6,7 +6,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.app.reelsapp.domain.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -14,6 +16,9 @@ import javax.inject.Inject
 class ReelsViewModel @Inject constructor(
     productRepository: ProductRepository
 ) : ViewModel() {
+
+    private val _currentReelPlaying = MutableStateFlow(false)
+    val currentReelPlaying: StateFlow<Boolean> = _currentReelPlaying
 
     val productPagingData = productRepository.getProducts()
         .cachedIn(viewModelScope)
@@ -30,5 +35,10 @@ class ReelsViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = PagingData.empty()
         )
+
+
+    fun onChangeCurrentReelPlaying(currentReelPlaying: Boolean) {
+        _currentReelPlaying.value = currentReelPlaying
+    }
 
 }
