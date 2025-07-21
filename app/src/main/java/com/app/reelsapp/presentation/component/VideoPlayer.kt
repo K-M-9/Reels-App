@@ -21,7 +21,11 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
 
 @OptIn(UnstableApi::class)
@@ -40,11 +44,23 @@ fun VideoPlayer(
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
-            setMediaItem(MediaItem.fromUri(videoUrl))
+            val cache = CacheManager.getCache(context)
+            val defaultDataSourceFactory = DefaultDataSource.Factory(context)
+
+            val cacheDataSourceFactory = CacheDataSource.Factory()
+                .setCache(cache)
+                .setUpstreamDataSourceFactory(defaultDataSourceFactory)
+                .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+
+            val mediaSource: MediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
+                .createMediaSource(MediaItem.fromUri(videoUrl))
+
+            setMediaSource(mediaSource)
             prepare()
             repeatMode = Player.REPEAT_MODE_ONE
         }
     }
+
 
     LaunchedEffect(isCurrentPage) {
         if (isCurrentPage) {
