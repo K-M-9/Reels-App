@@ -61,5 +61,11 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.media3.common)
+    implementation(libs.androidx.room.paging)
+
+    implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
 
 }
