@@ -7,7 +7,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,18 +26,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
+import com.app.reelsapp.R
 import com.app.reelsapp.domain.model.Product
-import com.app.reelsapp.domain.model.UserContent
+import com.app.reelsapp.domain.model.ProductOwner
 
 @Composable
 fun VerticalVideoPagerWithPaging(
     modifier: Modifier = Modifier,
     productPagingItems: LazyPagingItems<Product>,
-    userContentPagingItems: LazyPagingItems<UserContent>,
+    productOwnerPagingItems: LazyPagingItems<ProductOwner>,
     currentReelPlaying: Boolean,
     initialPage: Int = 0,
+    onFavorite: (id: String, isFavorite: Boolean) -> Unit,
+    onFollow: (id: String, isFollow: Boolean) -> Unit,
     onReelClick: (isPlaying: Boolean) -> Unit
 ) {
     val pagerState = rememberPagerState(
@@ -48,7 +54,7 @@ fun VerticalVideoPagerWithPaging(
         modifier = modifier.fillMaxSize()
     ) { pageIndex ->
         val product = productPagingItems[pageIndex]
-        val userContent = userContentPagingItems[pageIndex]
+        val productOwner = productOwnerPagingItems[pageIndex]
 
         if (product != null) {
 
@@ -69,17 +75,26 @@ fun VerticalVideoPagerWithPaging(
                     onVideoGoBackground = { onReelClick(false) }
                 )
 
-                userContent?.let {
+                CenterContent(
+                    modifier = Modifier.align(Alignment.Center),
+                    isFavorite = product.isFavorite,
+                    onFavorite = { favorite -> onFavorite(product.id.toString(), favorite) }
+                )
+
+
+                productOwner?.let {
                     ReelTopBar(
                         modifier = Modifier
                             .statusBarsPadding()
                             .padding(10.dp)
                             .fillMaxWidth()
                             .align(Alignment.TopStart),
-                        name = userContent.username,
-                        imageUrl = userContent.imageUrl,
-                        isFollow = true,
-                        onFollowClick = {}
+                        name = productOwner.username,
+                        imageUrl = productOwner.imageUrl,
+                        isFollow = productOwner.isFollow,
+                        onFollowClick = { isFollow ->
+                            onFollow(productOwner.id.toString(), isFollow)
+                        }
                     )
                 }
 
@@ -123,3 +138,39 @@ fun VerticalVideoPagerWithPaging(
         }
     }
 }
+
+@Composable
+fun CenterContent(
+    modifier: Modifier = Modifier,
+    isFavorite: Boolean,
+    onFavorite: (isFavorite: Boolean) -> Unit
+) {
+    Column(
+        modifier = modifier
+            .padding(20.dp)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.End
+    ) {
+        Icon(
+            modifier = Modifier
+                .size(50.dp)
+                .clickable {
+                    onFavorite(!isFavorite)
+                },
+            painter = if (isFavorite) painterResource(R.drawable.ic_favorite) else painterResource(R.drawable.ic_unfavorite),
+            contentDescription = null,
+            tint = if (isFavorite) Color.Red else Color.White
+        )
+    }
+}
+
+@Composable
+private fun LoadingScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(color = Color.White)
+    }
+}
+

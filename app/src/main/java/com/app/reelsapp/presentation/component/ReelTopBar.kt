@@ -44,10 +44,9 @@ fun ReelTopBar(
     name: String,
     imageUrl: String,
     isFollow: Boolean,
-    onFollowClick: () -> Unit
+    onFollowClick: ( isFollow: Boolean) -> Unit
 ) {
-    //TODO remove this and use isFollow
-    var showButton by remember { mutableStateOf(true) }
+
 
     Row(
         modifier = modifier,
@@ -62,10 +61,9 @@ fun ReelTopBar(
 
         FollowButton(
             onClick = {
-                onFollowClick()
-                showButton = false
+                onFollowClick(!isFollow)
             },
-            showButton = showButton,
+            showButton = !isFollow,
             modifier = Modifier.padding(start = 16.dp)
         )
     }

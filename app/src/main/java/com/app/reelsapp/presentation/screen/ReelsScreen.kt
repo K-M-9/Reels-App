@@ -1,6 +1,5 @@
 package com.app.reelsapp.presentation.screen
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,7 +31,7 @@ fun ReelsScreen(
     reelsViewModel: ReelsViewModel = hiltViewModel()
 ) {
     val productPagingItems = reelsViewModel.productPagingData.collectAsLazyPagingItems()
-    val userContentPagingItems = reelsViewModel.userContentPagingData.collectAsLazyPagingItems()
+    val productOwnerPagingItems = reelsViewModel.productOwnerPagingData.collectAsLazyPagingItems()
 
     Box(
         modifier = modifier
@@ -52,10 +51,12 @@ fun ReelsScreen(
                 VerticalVideoPagerWithPaging(
                     modifier = modifier,
                     productPagingItems = productPagingItems,
-                    userContentPagingItems = userContentPagingItems,
+                    productOwnerPagingItems = productOwnerPagingItems,
                     initialPage = 0,
                     currentReelPlaying = reelsViewModel.currentReelPlaying.collectAsStateWithLifecycle().value,
-                    onReelClick = reelsViewModel::onChangeCurrentReelPlaying
+                    onReelClick = reelsViewModel::onChangeCurrentReelPlaying,
+                    onFavorite = reelsViewModel::onChangeFavorite,
+                    onFollow = reelsViewModel::onChangeFollow,
                 )
             }
         }

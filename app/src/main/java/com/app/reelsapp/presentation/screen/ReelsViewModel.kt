@@ -4,42 +4,86 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
+import com.app.reelsapp.domain.model.Product
+import com.app.reelsapp.domain.model.ProductOwner
 import com.app.reelsapp.domain.repository.ProductRepository
+import com.app.reelsapp.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class ReelsViewModel @Inject constructor(
-    productRepository: ProductRepository
+    productRepository: ProductRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _currentReelPlaying = MutableStateFlow(false)
     val currentReelPlaying: StateFlow<Boolean> = _currentReelPlaying
 
-    val productPagingData = productRepository.getProducts()
-        .cachedIn(viewModelScope)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = PagingData.empty()
-        )
+    private var currentUsername: String? = null
 
-    val userContentPagingData = productRepository.getUserContent()
-        .cachedIn(viewModelScope)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = PagingData.empty()
-        )
+    private val _productPagingData = MutableStateFlow(PagingData.empty<Product>())
+    val productPagingData: StateFlow<PagingData<Product>> = _productPagingData
 
+    private val _productOwnerPagingData = MutableStateFlow(PagingData.empty<ProductOwner>())
+    val productOwnerPagingData: StateFlow<PagingData<ProductOwner>> = _productOwnerPagingData
 
-    fun onChangeCurrentReelPlaying(currentReelPlaying: Boolean) {
-        _currentReelPlaying.update{ currentReelPlaying }
+    init {
+        viewModelScope.launch {
+            currentUsername = userRepository.getCurrentUsername()
+        }
+
+        productRepository.getProducts()
+            .cachedIn(viewModelScope)
+            .onEach { _productPagingData.value = it }
+            .launchIn(viewModelScope)
+
+        productRepository.getProductOwner()
+            .cachedIn(viewModelScope)
+            .onEach { _productOwnerPagingData.value = it }
+            .launchIn(viewModelScope)
     }
 
+    fun onChangeCurrentReelPlaying(currentReelPlaying: Boolean) {
+        _currentReelPlaying.value = currentReelPlaying
+    }
+
+    fun onChangeFavorite(productID: String, isFavorite: Boolean) = viewModelScope.launch {
+        currentUsername?.let {
+            userRepository.toggleFavoriteStatusForUserProduct(
+                it,
+                productID,
+                isFavorite
+            )
+        }
+        _productPagingData.update { data ->
+            data.map {
+                it.takeIf { p -> p.id.toString() == productID }?.copy(isFavorite = isFavorite) ?: it
+            }
+        }
+    }
+
+    fun onChangeFollow(productOwnerID: String, isFollow: Boolean) = viewModelScope.launch {
+        currentUsername?.let {
+            userRepository.toggleProductOwnerFollowStatusForUser(
+                it,
+                productOwnerID,
+                isFollow
+            )
+        }
+        _productOwnerPagingData.update { data ->
+            data.map {
+                it.takeIf { o -> o.id.toString() == productOwnerID }?.copy(isFollow = isFollow)
+                    ?: it
+            }
+        }
+    }
 }
