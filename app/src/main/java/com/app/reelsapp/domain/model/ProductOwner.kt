@@ -1,6 +1,6 @@
 package com.app.reelsapp.domain.model
 
-data class UserContent(
+data class ProductOwner(
     val id: Int,
     val userId: Int,
     val username: String,
@@ -8,6 +8,7 @@ data class UserContent(
     val content: String,
     val rating: Int,
     val createdAt: String,
+    val isFollow:Boolean,
     val productId: Int,
     val imageUrl: String
 )
