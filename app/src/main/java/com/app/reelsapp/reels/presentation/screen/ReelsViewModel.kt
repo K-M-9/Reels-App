@@ -8,7 +8,7 @@ import androidx.paging.map
 import com.app.reelsapp.reels.domain.model.Product
 import com.app.reelsapp.reels.domain.model.ProductOwner
 import com.app.reelsapp.reels.domain.repository.ProductRepository
-import com.app.reelsapp.reels.domain.repository.UserRepository
+import com.app.reelsapp.core.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
