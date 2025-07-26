@@ -1,9 +1,10 @@
 package com.app.reelsapp.reels.data.local
 
 import android.content.Context
+import com.app.reelsapp.core.data.local.CurrentUserPreferences
 import com.app.reelsapp.reels.data.LocalDataSource
 import com.app.reelsapp.reels.data.local.database.dao.ProductDao
-import com.app.reelsapp.reels.data.local.database.dao.UserDao
+import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.reels.data.local.database.dto.FavoriteDto
 import com.app.reelsapp.reels.data.local.database.dto.FollowDto
 import com.app.reelsapp.reels.data.local.database.dto.ProductDto
@@ -20,7 +21,8 @@ import javax.inject.Singleton
 class LocalDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val productDao: ProductDao,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val currentUserPreferences:CurrentUserPreferences
 ) : LocalDataSource {
 
     private val gson = Gson()
@@ -60,7 +62,7 @@ class LocalDataSourceImpl @Inject constructor(
             userDao.deleteFollow(username, productOwner)
     }
 
-    override suspend fun getCurrentUsername(): String? = CurrentUserPreferences.getUsername(context)
+    override suspend fun getCurrentUsername(): String? = currentUserPreferences.getUsername()
 
 
     override suspend fun getProducts(page: Int, size: Int): List<ProductDto> {

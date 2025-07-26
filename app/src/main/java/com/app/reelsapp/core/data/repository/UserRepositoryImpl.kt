@@ -1,14 +1,13 @@
-package com.app.reelsapp.reels.data.repository
+package com.app.reelsapp.core.data.repository
 
 import com.app.reelsapp.reels.data.LocalDataSource
-import com.app.reelsapp.reels.domain.repository.UserRepository
+import com.app.reelsapp.core.domain.repository.UserRepository
 
 class UserRepositoryImpl(
     private val localDataSource: LocalDataSource
 ) : UserRepository {
 
-    override suspend fun getCurrentUsername(): String? =
-        localDataSource.getCurrentUsername()
+    override suspend fun getCurrentUsername(): String? = localDataSource.getCurrentUsername()
 
     override suspend fun toggleFavoriteStatusForUserProduct(
         username: String,

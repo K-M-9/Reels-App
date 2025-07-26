@@ -1,10 +1,11 @@
-package com.app.reelsapp.reels.di
+package com.app.reelsapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.app.reelsapp.reels.data.local.database.ReelsDataBase
+import com.app.reelsapp.core.data.local.CurrentUserPreferences
+import com.app.reelsapp.core.data.local.database.ReelsDataBase
+import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.reels.data.local.database.dao.ProductDao
-import com.app.reelsapp.reels.data.local.database.dao.UserDao
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -26,6 +27,12 @@ object DataModule {
             "app_database"
         ).build()
     }
+
+    @Provides
+    @Singleton
+    fun provideCurrentUserPreferences(
+        @ApplicationContext context: Context
+    ): CurrentUserPreferences =  CurrentUserPreferences(context)
 
     @Provides
     @Singleton

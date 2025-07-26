@@ -1,4 +1,4 @@
-package com.app.reelsapp.reels.data.local.database.dao
+package com.app.reelsapp.core.data.local.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.app.reelsapp.reels.data.local.database.dto.FavoriteDto
 import com.app.reelsapp.reels.data.local.database.dto.FollowDto
-import com.app.reelsapp.reels.data.local.database.dto.UserDto
+import com.app.reelsapp.core.data.local.database.dto.UserDto
 
 
 @Dao

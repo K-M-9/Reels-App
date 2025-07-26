@@ -1,4 +1,4 @@
-package com.app.reelsapp.reels.domain.repository
+package com.app.reelsapp.core.domain.repository
 
 interface UserRepository {
     suspend fun getCurrentUsername(): String?

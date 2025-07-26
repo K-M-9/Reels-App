@@ -1,4 +1,4 @@
-package com.app.reelsapp.reels.data.local.database.dto
+package com.app.reelsapp.core.data.local.database.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
