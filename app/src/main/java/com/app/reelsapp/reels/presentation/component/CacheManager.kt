@@ -26,4 +26,17 @@ object CacheManager {
 
         return SimpleCache(cacheDir, evictor, databaseProvider)
     }
+
+    fun release() {
+        simpleCache?.release()
+        simpleCache = null
+    }
+
+    fun clearCache(context: Context) {
+        release()
+        val cacheDir = File(context.cacheDir, "media_cache")
+        if (cacheDir.exists()) {
+            cacheDir.deleteRecursively()
+        }
+    }
 }
