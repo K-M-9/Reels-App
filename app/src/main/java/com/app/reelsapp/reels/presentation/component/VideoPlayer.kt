@@ -71,13 +71,16 @@ fun VideoPlayer(
         }
     }
 
+
+
+
     DisposableEffect(exoPlayer) {
         onDispose {
             exoPlayer.release()
             onVideoDispose()
         }
     }
-
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
