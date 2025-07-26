@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.hilt)
-
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.bundles.paging)
     implementation(libs.bundles.retrofit)
     debugImplementation(libs.bundles.composeDebug)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.bundles.testing)
     androidTestImplementation(platform(libs.androidx.compose.bom))
