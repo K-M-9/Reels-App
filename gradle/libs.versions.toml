@@ -4,6 +4,7 @@ hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
+datastorePreferences = "1.1.7"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.1"
@@ -11,12 +12,22 @@ activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 coilCompose = "2.7.0"
 hilt = "2.56.2"
+roomPaging = "2.7.2"
+roomRuntime = "2.6.1"
 ksp = "2.0.21-1.0.27"
 media3Exoplayer = "1.1.1"
 pagingRuntime = "3.3.6"
 retrofit = "2.9.0"
+navigationCompose = "2.8.0"
 
 [libraries]
+
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-media3-common = { module = "androidx.media3:media3-common", version.ref = "media3Exoplayer" }
@@ -42,6 +53,8 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.3" }
+androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref="navigationCompose"}
 
 
 [plugins]
@@ -50,6 +63,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version = "2.56.2" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 compose = [
@@ -60,7 +74,8 @@ compose = [
     "androidx-ui",
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
-    "androidx-material3"
+    "androidx-material3",
+    "androidx-compose-navigation"
 ]
 composeDebug = [
     "androidx-ui-tooling",
@@ -84,4 +99,9 @@ exoplayer=[
     "androidx-media3-common",
     "androidx-media3-exoplayer",
     "androidx-media3-ui"
+]
+
+room = [
+    "androidx-room-ktx",
+    "androidx-room-runtime"
 ]
