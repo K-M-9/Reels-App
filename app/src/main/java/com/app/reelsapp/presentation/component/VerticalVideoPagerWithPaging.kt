@@ -21,10 +21,6 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,9 +34,9 @@ fun VerticalVideoPagerWithPaging(
     modifier: Modifier = Modifier,
     productPagingItems: LazyPagingItems<Product>,
     userContentPagingItems: LazyPagingItems<UserContent>,
-    currentReelPlaying:Boolean,
+    currentReelPlaying: Boolean,
     initialPage: Int = 0,
-    onReelClick:(isPlaying:Boolean)->Unit
+    onReelClick: (isPlaying: Boolean) -> Unit
 ) {
     val pagerState = rememberPagerState(
         initialPage = initialPage,
@@ -67,9 +63,9 @@ fun VerticalVideoPagerWithPaging(
                     pagerState = pagerState,
                     pageIndex = pageIndex,
                     onSingleTap = { player ->
-                      onReelClick(!player.isPlaying)
+                        onReelClick(!player.isPlaying)
                     },
-                    onVideoDispose = { onReelClick(false)},
+                    onVideoDispose = { onReelClick(false) },
                     onVideoGoBackground = { onReelClick(false) }
                 )
 
