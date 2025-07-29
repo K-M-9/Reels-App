@@ -19,8 +19,14 @@ media3Exoplayer = "1.1.1"
 pagingRuntime = "3.3.6"
 retrofit = "2.9.0"
 navigationCompose = "2.8.0"
+zego = "+"
+gson = "2.11.0"
 
 [libraries]
+
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+zego_uikit_prebuilt_live_streaming_android = { module = "com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android", version.ref = "zego" }
 
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 

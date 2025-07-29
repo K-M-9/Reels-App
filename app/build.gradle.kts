@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.coil.compose)
     implementation(libs.hilt.android)
-    ksp  (libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.bundles.paging)
     implementation(libs.bundles.retrofit)
     debugImplementation(libs.bundles.composeDebug)
@@ -65,7 +65,8 @@ dependencies {
     implementation(libs.androidx.room.paging)
 
     implementation(libs.androidx.datastore.preferences)
-
+    implementation(libs.gson)
+    implementation(libs.zego.uikit.prebuilt.live.streaming.android)
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
 
