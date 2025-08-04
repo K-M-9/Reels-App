@@ -1,4 +1,4 @@
-package com.app.reelsapp.reels.domain.repository
+package com.app.reelsapp.reels.data.repository
 
 import androidx.paging.PagingData
 import com.app.reelsapp.reels.domain.model.Product

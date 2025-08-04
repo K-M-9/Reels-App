@@ -1,7 +1,6 @@
 package com.app.reelsapp.authentication.data.repository
 
 import com.app.reelsapp.authentication.data.AuthenticationLocalDataSource
-import com.app.reelsapp.authentication.domain.AuthenticationRepository
 
 class AuthenticationRepositoryImpl(
     private val localDataSource: AuthenticationLocalDataSource

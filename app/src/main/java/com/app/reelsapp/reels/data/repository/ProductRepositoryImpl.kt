@@ -10,7 +10,6 @@ import com.app.reelsapp.reels.data.paging.ProductOwnerPagingSource
 import com.app.reelsapp.reels.data.paging.ProductPagingSource
 import com.app.reelsapp.reels.domain.model.Product
 import com.app.reelsapp.reels.domain.model.ProductOwner
-import com.app.reelsapp.reels.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

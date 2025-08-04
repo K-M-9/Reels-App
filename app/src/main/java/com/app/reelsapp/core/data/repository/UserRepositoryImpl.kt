@@ -1,6 +1,5 @@
 package com.app.reelsapp.core.data.repository
 
-import com.app.reelsapp.core.domain.repository.UserRepository
 import com.app.reelsapp.reels.data.ReelsLocalDataSource
 
 class UserRepositoryImpl(

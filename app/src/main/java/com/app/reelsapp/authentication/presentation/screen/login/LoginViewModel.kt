@@ -2,7 +2,7 @@ package com.app.reelsapp.authentication.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.app.reelsapp.authentication.domain.AuthenticationRepository
+import com.app.reelsapp.authentication.data.repository.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers

@@ -3,16 +3,16 @@ package com.app.reelsapp.di
 
 import android.content.Context
 import com.app.reelsapp.authentication.data.repository.AuthenticationRepositoryImpl
-import com.app.reelsapp.authentication.domain.AuthenticationRepository
+import com.app.reelsapp.authentication.data.repository.AuthenticationRepository
 import com.app.reelsapp.core.data.local.CurrentUserPreferences
 import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.core.data.repository.UserRepositoryImpl
-import com.app.reelsapp.core.domain.repository.UserRepository
+import com.app.reelsapp.core.data.repository.UserRepository
 import com.app.reelsapp.reels.data.ReelsLocalDataSource
 import com.app.reelsapp.reels.data.local.ReelsLocalDataSourceImpl
 import com.app.reelsapp.reels.data.local.database.dao.ProductDao
 import com.app.reelsapp.reels.data.repository.ProductRepositoryImpl
-import com.app.reelsapp.reels.domain.repository.ProductRepository
+import com.app.reelsapp.reels.data.repository.ProductRepository
 import com.app.reelsapp.authentication.data.AuthenticationLocalDataSource
 import com.app.reelsapp.authentication.data.local.AuthenticationLocalDataSourceImpl
 import dagger.Module
