@@ -8,13 +8,13 @@ import com.app.reelsapp.core.data.local.CurrentUserPreferences
 import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.core.data.repository.UserRepositoryImpl
 import com.app.reelsapp.core.domain.repository.UserRepository
-import com.app.reelsapp.reels.data.LocalDataSource
-import com.app.reelsapp.reels.data.local.LocalDataSourceImpl
+import com.app.reelsapp.reels.data.ReelsLocalDataSource
+import com.app.reelsapp.reels.data.local.ReelsLocalDataSourceImpl
 import com.app.reelsapp.reels.data.local.database.dao.ProductDao
 import com.app.reelsapp.reels.data.repository.ProductRepositoryImpl
 import com.app.reelsapp.reels.domain.repository.ProductRepository
-import com.app.reelsapp.authentication.data.LocalDataSource as AuthLocalDataSource
-import com.app.reelsapp.authentication.data.local.LocalDataSourceImpl as AuthLocalDataSourceImpl
+import com.app.reelsapp.authentication.data.AuthenticationLocalDataSource
+import com.app.reelsapp.authentication.data.local.AuthenticationLocalDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ object RepositoryModule {
         productDao: ProductDao,
         userDao: UserDao,
         currentUserPreferences: CurrentUserPreferences
-    ): LocalDataSource = LocalDataSourceImpl(
+    ): ReelsLocalDataSource = ReelsLocalDataSourceImpl(
         context = context,
         productDao = productDao,
         userDao = userDao,
@@ -45,7 +45,7 @@ object RepositoryModule {
     fun provideAuthLocalDataSource(
         userDao: UserDao,
         currentUserPreferences: CurrentUserPreferences
-    ): AuthLocalDataSource = AuthLocalDataSourceImpl(
+    ): AuthenticationLocalDataSource = AuthenticationLocalDataSourceImpl(
         userDao = userDao,
         currentUserPreferences = currentUserPreferences
     )
@@ -53,18 +53,18 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideProductRepository(
-        localDataSource: LocalDataSource
-    ): ProductRepository = ProductRepositoryImpl(localDataSource)
+        reelsLocalDataSource: ReelsLocalDataSource
+    ): ProductRepository = ProductRepositoryImpl(reelsLocalDataSource)
 
     @Provides
     @Singleton
     fun provideAuthenticationRepository(
-        localDataSource: AuthLocalDataSource
+        localDataSource:  AuthenticationLocalDataSource
     ): AuthenticationRepository = AuthenticationRepositoryImpl(localDataSource)
 
     @Provides
     @Singleton
     fun provideUserRepository(
-        localDataSource: LocalDataSource
-    ): UserRepository = UserRepositoryImpl(localDataSource)
+        reelsLocalDataSource: ReelsLocalDataSource
+    ): UserRepository = UserRepositoryImpl(reelsLocalDataSource)
 }

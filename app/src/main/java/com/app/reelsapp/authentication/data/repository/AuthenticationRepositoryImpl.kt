@@ -1,10 +1,10 @@
 package com.app.reelsapp.authentication.data.repository
 
-import com.app.reelsapp.authentication.data.LocalDataSource
+import com.app.reelsapp.authentication.data.AuthenticationLocalDataSource
 import com.app.reelsapp.authentication.domain.AuthenticationRepository
 
 class AuthenticationRepositoryImpl(
-    private val localDataSource: LocalDataSource
+    private val localDataSource: AuthenticationLocalDataSource
 ) : AuthenticationRepository {
 
     override suspend fun login(username: String): Result<Boolean> {

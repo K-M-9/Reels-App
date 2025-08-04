@@ -2,7 +2,7 @@ package com.app.reelsapp.reels.data.local
 
 import android.content.Context
 import com.app.reelsapp.core.data.local.CurrentUserPreferences
-import com.app.reelsapp.reels.data.LocalDataSource
+import com.app.reelsapp.reels.data.ReelsLocalDataSource
 import com.app.reelsapp.reels.data.local.database.dao.ProductDao
 import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.reels.data.local.database.dto.FavoriteDto
@@ -18,12 +18,12 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class LocalDataSourceImpl @Inject constructor(
+class ReelsLocalDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val productDao: ProductDao,
     private val userDao: UserDao,
     private val currentUserPreferences:CurrentUserPreferences
-) : LocalDataSource {
+) : ReelsLocalDataSource {
 
     private val gson = Gson()
 
