@@ -7,7 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -16,8 +19,8 @@ class RegisterViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository
 ) : ViewModel() {
 
-    private val _effect = Channel<RegisterEffect>()
-    val effect = _effect.receiveAsFlow()
+    private val _effect = MutableSharedFlow<RegisterEffect>(replay = 0)
+    val effect: SharedFlow<RegisterEffect> = _effect.asSharedFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading
@@ -42,10 +45,10 @@ class RegisterViewModel @Inject constructor(
             val result = authenticationRepository.register(_username.value, _name.value)
             result.onSuccess { isRegistered ->
                 if (isRegistered) {
-                    _effect.send(RegisterEffect.NavigateToHomeScreen)
+                    _effect.emit(RegisterEffect.NavigateToHomeScreen)
                 }
             }.onFailure {
-                _effect.send(RegisterEffect.ShowError("An error occurred during registration"))
+                _effect.emit(RegisterEffect.ShowError("An error occurred during registration"))
             }
             _isLoading.value = false
         }
