@@ -7,7 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -17,8 +20,8 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _effect = Channel<LoginEffect>()
-    val effect = _effect.receiveAsFlow()
+    private val _effect = MutableSharedFlow<LoginEffect>(replay = 0)
+    val effect: SharedFlow<LoginEffect> = _effect.asSharedFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading
@@ -32,13 +35,13 @@ class LoginViewModel @Inject constructor(
             authenticationRepository.login(_username.value)
                 .onSuccess { isLoggedIn ->
                     if (isLoggedIn) {
-                        _effect.send(LoginEffect.NavigateToHomeScreen)
+                        _effect.emit(LoginEffect.NavigateToHomeScreen)
                     } else {
-                        _effect.send(LoginEffect.ShowError("Username is wrong"))
+                        _effect.emit(LoginEffect.ShowError("Username is wrong"))
                     }
                 }
                 .onFailure {
-                    _effect.send(LoginEffect.ShowError("An error occurred during login"))
+                    _effect.emit(LoginEffect.ShowError("An error occurred during login"))
                 }
             _isLoading.value = false
         }
