@@ -38,7 +38,7 @@ class ReelsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            currentUsername = userRepository.getCurrentUsername()
+            currentUsername = userRepository.getCurrentUsername().getOrNull()
         }
 
         productRepository.getProducts()

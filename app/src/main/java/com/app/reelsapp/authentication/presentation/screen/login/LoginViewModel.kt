@@ -26,14 +26,20 @@ class LoginViewModel @Inject constructor(
     private val _username = MutableStateFlow("")
     val username = _username
 
-
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
-            if (authenticationRepository.login(_username.value))
-                _effect.send(LoginEffect.NavigateToHomeScreen)
-            else
-                _effect.send(LoginEffect.ShowError("Username is wrong"))
+            authenticationRepository.login(_username.value)
+                .onSuccess { isLoggedIn ->
+                    if (isLoggedIn) {
+                        _effect.send(LoginEffect.NavigateToHomeScreen)
+                    } else {
+                        _effect.send(LoginEffect.ShowError("Username is wrong"))
+                    }
+                }
+                .onFailure {
+                    _effect.send(LoginEffect.ShowError("An error occurred during login"))
+                }
             _isLoading.value = false
         }
     }

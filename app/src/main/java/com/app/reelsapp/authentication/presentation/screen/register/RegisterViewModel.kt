@@ -1,5 +1,6 @@
 package com.app.reelsapp.authentication.presentation.screen.register
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.reelsapp.authentication.domain.AuthenticationRepository
@@ -39,8 +40,14 @@ class RegisterViewModel @Inject constructor(
     fun register() {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
-            if (authenticationRepository.register(_username.value, _name.value))
-                _effect.send(RegisterEffect.NavigateToHomeScreen)
+            val result = authenticationRepository.register(_username.value, _name.value)
+            result.onSuccess { isRegistered ->
+                if (isRegistered) {
+                    _effect.send(RegisterEffect.NavigateToHomeScreen)
+                }
+            }.onFailure {
+                _effect.send(RegisterEffect.ShowError("An error occurred during registration"))
+            }
             _isLoading.value = false
         }
     }
