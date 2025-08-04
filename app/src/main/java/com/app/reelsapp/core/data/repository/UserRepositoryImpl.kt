@@ -1,15 +1,15 @@
 package com.app.reelsapp.core.data.repository
 
 import com.app.reelsapp.core.domain.repository.UserRepository
-import com.app.reelsapp.reels.data.LocalDataSource
+import com.app.reelsapp.reels.data.ReelsLocalDataSource
 
 class UserRepositoryImpl(
-    private val localDataSource: LocalDataSource
+    private val reelsLocalDataSource: ReelsLocalDataSource
 ) : UserRepository {
 
     override suspend fun getCurrentUsername(): Result<String?> {
         return runCatching {
-            localDataSource.getCurrentUsername()
+            reelsLocalDataSource.getCurrentUsername()
         }
     }
 
@@ -19,7 +19,7 @@ class UserRepositoryImpl(
         isFavorite: Boolean
     ): Result<Unit> {
         return runCatching {
-            localDataSource.toggleFavoriteStatusForUserProduct(username, productID, isFavorite)
+            reelsLocalDataSource.toggleFavoriteStatusForUserProduct(username, productID, isFavorite)
         }
     }
 
@@ -29,7 +29,7 @@ class UserRepositoryImpl(
         isFollow: Boolean
     ): Result<Unit> {
         return runCatching {
-            localDataSource.toggleProductOwnerFollowStatusForUser(username, productOwner, isFollow)
+            reelsLocalDataSource.toggleProductOwnerFollowStatusForUser(username, productOwner, isFollow)
         }
     }
 }

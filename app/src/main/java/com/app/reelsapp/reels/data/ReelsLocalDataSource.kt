@@ -3,7 +3,7 @@ package com.app.reelsapp.reels.data
 import com.app.reelsapp.reels.data.local.database.dto.ProductDto
 import com.app.reelsapp.reels.data.local.database.dto.ProductOwnerDto
 
-interface LocalDataSource {
+interface ReelsLocalDataSource {
     suspend fun getUserProductFavorite(username: String): List<String>
     suspend fun getUserProductOwnerFollow(username: String): List<String>
     suspend fun toggleFavoriteStatusForUserProduct(username: String, productID: String, isFavorite: Boolean)

@@ -1,15 +1,15 @@
 package com.app.reelsapp.authentication.data.local
 
-import com.app.reelsapp.authentication.data.LocalDataSource
+import com.app.reelsapp.authentication.data.AuthenticationLocalDataSource
 import com.app.reelsapp.core.data.local.CurrentUserPreferences
 import com.app.reelsapp.core.data.local.database.dao.UserDao
 import com.app.reelsapp.core.data.local.database.dto.UserDto
 import javax.inject.Inject
 
-class LocalDataSourceImpl @Inject constructor(
+class AuthenticationLocalDataSourceImpl @Inject constructor(
     private val userDao: UserDao,
     private val currentUserPreferences: CurrentUserPreferences
-) : LocalDataSource {
+) : AuthenticationLocalDataSource {
 
     override suspend fun login(username: String): Boolean {
         return userDao.getUserByUsername(username)?.let {

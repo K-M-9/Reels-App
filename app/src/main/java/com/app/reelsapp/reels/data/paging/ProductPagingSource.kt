@@ -2,19 +2,19 @@ package com.app.reelsapp.reels.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.app.reelsapp.reels.data.LocalDataSource
+import com.app.reelsapp.reels.data.ReelsLocalDataSource
 import com.app.reelsapp.reels.data.local.database.dto.ProductDto
 import jakarta.inject.Inject
 
 
 class ProductPagingSource @Inject constructor(
-    private val localDataSource: LocalDataSource,
+    private val reelsLocalDataSource: ReelsLocalDataSource,
 ) : PagingSource<Int, ProductDto>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductDto> {
         return try {
             val page = params.key ?: 1
-            val products = localDataSource.getProducts(page, params.loadSize)
+            val products = reelsLocalDataSource.getProducts(page, params.loadSize)
 
             LoadResult.Page(
                 data = products,
