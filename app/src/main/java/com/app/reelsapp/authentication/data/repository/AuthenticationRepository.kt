@@ -1,4 +1,4 @@
-package com.app.reelsapp.authentication.domain
+package com.app.reelsapp.authentication.data.repository
 
 interface AuthenticationRepository {
     suspend fun login(username: String): Result<Boolean>
